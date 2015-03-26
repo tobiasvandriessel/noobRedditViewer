@@ -1,0 +1,26 @@
+<ion-view view-title="Browse">
+  <ion-content>
+    <h1>Reddit Viewer</h1>
+
+    <div class="list card" data-ng-repeat="link in links">
+
+      <div class="item item-avatar">
+        <!-- img data-ng-src="{{link.data.author.avatar_url}}" -->
+        <h2>{{link.data.title}}</h2>
+        <p>{{link.data.author}}</p>
+      </div>
+
+      <div class="item item-link">
+        <img ng-click="focus = $index" ng-show="focus != $index" data-ng-src="{{link.data.thumbnail}}">
+        <img ng-click="focus = -1" ng-show="focus == $index && ng-if="link.data.url != null" " data-ng-src="{{link.data.url}}">
+      </div>
+
+      <a class="item item-icon-left assertive" data-ng-href="{{link.url}}">
+        <i class="icon ion-music-note"></i>
+        Visit Original Image
+      </a>
+
+    </div>
+
+  </ion-content>
+</ion-view>
