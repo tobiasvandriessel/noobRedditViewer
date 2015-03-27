@@ -1,5 +1,5 @@
 <ion-view view-title="Browse">
-  <ion-content>
+  <ion-content ng-init="focus=0">
     <h1>Reddit Viewer</h1>
 
     <div class="list card" data-ng-repeat="link in links">
@@ -12,10 +12,11 @@
 
       <div class="item item-link">
         <img ng-click="focus = $index" ng-show="focus != $index" data-ng-src="{{link.data.thumbnail}}">
-        <img ng-click="focus = -1" ng-show="focus == $index && ng-if="link.data.url != null" " data-ng-src="{{link.data.url}}">
+        <img ng-click="focus = -1" ng-show="focus == $index" data-ng-src="{{link.data.url}}">
+        <!--<video data-ng-src="" ></video>-->
       </div>
 
-      <a class="item item-icon-left assertive" data-ng-href="{{link.url}}">
+      <a class="item item-icon-left assertive" data-ng-href="{{link.data.url}}">
         <i class="icon ion-music-note"></i>
         Visit Original Image
       </a>

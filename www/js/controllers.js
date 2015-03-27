@@ -49,7 +49,6 @@ angular.module('starter.controllers', [])
 
 .controller('BrowseCtrl', function($scope, $state, $http, $q) {
   $scope.init = function(){
-    $scope.focus = -1;
     
     $scope.getLinks()
     .then(function(res){
