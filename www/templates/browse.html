@@ -1,6 +1,33 @@
 <ion-view view-title="Browse">
   <ion-content ng-init="focus=0">
-    <h1>Reddit Viewer</h1>
+
+  	<div class="bar bar-header item-input-inset">
+  		<label class="item-input-wrapper" name="searchBar">
+    		<i class="icon ion-ios7-search placeholder-icon"></i>
+    		<input type="search" placeholder="Search Subreddits" ng-model="searchTerm"/>
+
+  		</label>
+  		<button class="button button-clear" ng-click="init(searchTerm)">
+    		Submit
+  		</button>
+	</div>
+
+<!--     <div class="search" ng-controller="BrowseCtrl as browse">
+  		<form name="Search">
+  		  	<fieldset class="form-group">
+               	<textarea class="form-control" placeholder="Search reddit subreddits" title="Input"></textarea>
+         	</fieldset>
+         	<fieldset class="form-group">
+                <input type="submit" class="button button-light pull-right" value="Submit search" />
+            </fieldset>
+
+    	<i class="icon ion-search placeholder-icon"></i>
+    	<input class="input-button-right" ng-model="searchInput" type="search" placeholder="Search" method="browse.init()">
+  		<button class="button button-clear" ng-click="browse.init()" value="Submit Search">
+    		Submit
+  		</button>
+
+	</div> -->
 
     <div class="list card" data-ng-repeat="link in links">
 
@@ -12,8 +39,8 @@
 
       <div class="item item-link">
         <img ng-click="focus = $index" ng-show="focus != $index" data-ng-src="{{link.data.thumbnail}}">
-        <img ng-click="focus = -1" ng-show="focus == $index" data-ng-src="{{link.data.url}}">
-        <!--<video data-ng-src="" ></video>-->
+        <img ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 0" data-ng-src="{{link.data.url}}">
+        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 1 " data-ng-src="{{trustSrc(link.data.url)}}">
       </div>
 
       <a class="item item-icon-left assertive" data-ng-href="{{link.data.url}}">

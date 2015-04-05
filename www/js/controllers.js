@@ -47,38 +47,115 @@ angular.module('starter.controllers', [])
 .controller('PlaylistCtrl', function($scope, $stateParams) {
 })
 
-.controller('BrowseCtrl', function($scope, $state, $http, $q) {
-  $scope.init = function(){
+.controller('BrowseCtrl', function($scope, $state, $http, $q, $sce) {
+  $scope.init = function(term){
+
+    console.log('Init called' + term);
     
-    $scope.getLinks()
+    $scope.getLinks(term)
     .then(function(res){
       //success
       console.log('Links: ', res);
       $scope.links = res.data.children;
+      $scope.getCorrectUrls();
     }, function(status){
       //err
       $scope.pageError = status;
-    })
-  }
+    });
+  };
 
-  $scope.getLinks = function(){
+  $scope.getLinks = function(term){
     var defer = $q.defer();
-
-    $http.get('https://www.reddit.com/r/gifs/hot.json')
+    //console.log(searchTerm2 + 'in getLinks');
+    $http.get('https://www.reddit.com/r/' + term + '/hot.json')
     .success(function(res){
-      //console.log('Succes in getLinks');
-      defer.resolve(res)
+      console.log('Succes in getLinks');
+      defer.resolve(res);
     })
     .error(function(status, err){
-      //console.log('Error in getLinks');
+      console.log('Error in getLinks');
       defer.reject(status);
-    })
+    });
 
     return defer.promise;
-  }
+  };
 
-  $scope.init();
+  $scope.getType = function(ext){
+    if (ext[0] == '.'){
+      ext = ext.substring(ext.length - 3);
+    }
 
-})
+    //returns: image-> 0, video -> 1, default -> error (-1)
+    switch(ext){
+      case "img":
+      case "png":
+      case "jpg":
+        return 0;
+      case "gif":
+      case "gifv":
+      case "mp4":
+      case "webm":
+        return 1;
+      default:
+        return -1;
+    }
+  };
 
-;
+  $scope.getCorrectUrls = function(){
+    $scope.urls = [];
+
+    for(var i = 0; i < $scope.links.length; i++){
+
+      $scope.urls[i] = $scope.links[i].data.url;
+
+      if($scope.urls[i] !== undefined && $scope.urls[i].substring($scope.urls[i].length - 4) == "gifv"){
+
+        var newWord = "webm";
+
+        for(var j = $scope.urls[i].length - 4; j < $scope.urls[i].length; j++)
+        {
+          $scope.urls[i][j] = newWord[j - $scope.urls[i].length + 4];
+        }
+
+        console.log($scope.links[i].url);
+
+      }
+      if($scope.urls[i] !== undefined && $scope.urls[i].startsWith("http://")){
+
+        $scope.urls[i] = "https://" + $scope.urls[i].substring(7);
+
+      }
+    }
+  };
+
+  // $scope.getCorrectUrls = function(){
+
+  //   for(var i = 0; i < $scope.links[i].length; i++){
+
+  //     if($scope.links[i].data.url !== undefined && $scope.links[i].data.url.substring($scope.links[i].data.url.length - 4) == "gifv"){
+
+  //       var newWord = "webm";
+
+  //       for(var j = $scope.links[i].data.url.length - 4; j < $scope.links[i].data.url.length; j++)
+  //       {
+  //         $scope.links[i].data.url[j] = newWord[j - $scope.links[i].data.url.length + 4];
+  //       }
+
+  //       console.log($scope.links[i].data.url);
+
+  //     }
+  //     if($scope.links[i].data.url !== undefined && $scope.links[i].data.url.startsWith("http://")){
+
+  //       $scope.links[i].data.url = "https://" + $scope.links[i].data.url.substring(7);
+
+  //     }
+  //   }
+  // };
+
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  };
+
+  //$scope.init();
+
+});
