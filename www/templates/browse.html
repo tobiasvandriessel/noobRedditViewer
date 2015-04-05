@@ -10,24 +10,7 @@
   		<button class="button button-clear" ng-click="init(searchTerm)">
     		Submit
   		</button>
-	</div>
-
-<!--     <div class="search" ng-controller="BrowseCtrl as browse">
-  		<form name="Search">
-  		  	<fieldset class="form-group">
-               	<textarea class="form-control" placeholder="Search reddit subreddits" title="Input"></textarea>
-         	</fieldset>
-         	<fieldset class="form-group">
-                <input type="submit" class="button button-light pull-right" value="Submit search" />
-            </fieldset>
-
-    	<i class="icon ion-search placeholder-icon"></i>
-    	<input class="input-button-right" ng-model="searchInput" type="search" placeholder="Search" method="browse.init()">
-  		<button class="button button-clear" ng-click="browse.init()" value="Submit Search">
-    		Submit
-  		</button>
-
-	</div> -->
+    </div>
 
     <div class="list card" data-ng-repeat="link in links">
 
@@ -38,9 +21,9 @@
       </div>
 
       <div class="item item-link">
-        <img ng-click="focus = $index" ng-show="focus != $index" data-ng-src="{{link.data.thumbnail}}">
+        <img ng-click="focus = $index; console.log(urls[$index])" ng-show="focus != $index" data-ng-src="{{link.data.thumbnail}}">
         <img ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 0" data-ng-src="{{link.data.url}}">
-        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 1 " data-ng-src="{{trustSrc(link.data.url)}}">
+        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 1 " data-ng-src="{{trustSrc(urls[$index])}}">
       </div>
 
       <a class="item item-icon-left assertive" data-ng-href="{{link.data.url}}">
