@@ -108,54 +108,21 @@ angular.module('starter.controllers', [])
 
       $scope.urls[i] = $scope.links[i].data.url;
 
-      if($scope.urls[i] !== undefined && $scope.urls[i].substring($scope.urls[i].length - 4) == "gifv"){
+      //var newUrl = $scope.urls[i].replace(/(gifv|gif)$/, 'webm');
+      var newUrl = $scope.urls[i].replace(/gifv$/, 'webm');
 
-        var newWord = "webm";
+      $scope.urls[i] = newUrl;
 
-        for(var j = $scope.urls[i].length - 4; j < $scope.urls[i].length; j++)
-        {
-          $scope.urls[i][j] = newWord[j - $scope.urls[i].length + 4];
-        }
-
-        console.log($scope.links[i].url);
-
-      }
       if($scope.urls[i] !== undefined && $scope.urls[i].startsWith("http://")){
 
         $scope.urls[i] = "https://" + $scope.urls[i].substring(7);
-
       }
     }
   };
 
-  // $scope.getCorrectUrls = function(){
-
-  //   for(var i = 0; i < $scope.links[i].length; i++){
-
-  //     if($scope.links[i].data.url !== undefined && $scope.links[i].data.url.substring($scope.links[i].data.url.length - 4) == "gifv"){
-
-  //       var newWord = "webm";
-
-  //       for(var j = $scope.links[i].data.url.length - 4; j < $scope.links[i].data.url.length; j++)
-  //       {
-  //         $scope.links[i].data.url[j] = newWord[j - $scope.links[i].data.url.length + 4];
-  //       }
-
-  //       console.log($scope.links[i].data.url);
-
-  //     }
-  //     if($scope.links[i].data.url !== undefined && $scope.links[i].data.url.startsWith("http://")){
-
-  //       $scope.links[i].data.url = "https://" + $scope.links[i].data.url.substring(7);
-
-  //     }
-  //   }
-  // };
-
-  $scope.trustSrc = function(src) {
-    return $sce.trustAsResourceUrl(src);
-  };
+    $scope.trustSrc = function(src) {
+      return $sce.trustAsResourceUrl(src);
+    };
 
   //$scope.init();
-
 });

@@ -22,8 +22,10 @@
 
       <div class="item item-link">
         <img ng-click="focus = $index; console.log(urls[$index])" ng-show="focus != $index" data-ng-src="{{link.data.thumbnail}}">
-        <img ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 0" data-ng-src="{{link.data.url}}">
-        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 1 " data-ng-src="{{trustSrc(urls[$index])}}">
+        <img ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 0" data-ng-src="{{link.data.url}}" width="100%">
+        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url.substring(link.data.url.length - 4)) == 1 " data-ng-src="{{trustSrc(urls[$index])}}" width="100%" autoplay loop>
+        Your browser doesn't support this video format.
+        </video>
       </div>
 
       <a class="item item-icon-left assertive" data-ng-href="{{link.data.url}}">
