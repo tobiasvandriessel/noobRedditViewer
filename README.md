@@ -1,7 +1,6 @@
 # noobRedditViewer
-Noob Reddit Viewer
 
-It is an app used to view Reddit's subreddits, it's noobis, so I'm open to any tips or recommendations!
+<b>It is an app used to view Reddit's subreddits, it's noobish, so I'm open to any tips or recommendations!</b>
 
 Right now I just get the subreddit entered and post the (hot) links in a list of cards, using the ionic platform, AngularJS, HTML and CSS. 
 
