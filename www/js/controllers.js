@@ -49,14 +49,12 @@ angular.module('starter.controllers', [])
 
 .controller('BrowseCtrl', function($scope, $state, $http, $q, $sce) {
   $scope.init = function(term){
-
-    console.log('Init called' + term);
     
     $scope.getLinks(term)
     .then(function(res){
       //success
-      console.log('Links: ', res);
       $scope.links = res.data.children;
+      console.log('Links: ', res);
       $scope.getCorrectUrls();
     }, function(status){
       //err
@@ -66,10 +64,8 @@ angular.module('starter.controllers', [])
 
   $scope.getLinks = function(term){
     var defer = $q.defer();
-    //console.log(searchTerm2 + 'in getLinks');
     $http.get('https://www.reddit.com/r/' + term + '/hot.json')
     .success(function(res){
-      console.log('Succes in getLinks');
       defer.resolve(res);
     })
     .error(function(status, err){
@@ -80,25 +76,29 @@ angular.module('starter.controllers', [])
     return defer.promise;
   };
 
-  $scope.getType = function(ext){
-    if (ext[0] == '.'){
-      ext = ext.substring(ext.length - 3);
+  $scope.getType = function(url){
+
+    var reImage = /(img|png|jpg)$/;
+    var reVideo = /(gif|gifv|mp4|webm)$/;
+    var reYoutube = /youtu/;
+
+    console.log('checking extensions');
+
+    if(url.match(reImage) !== null){
+      console.log(url + ' is een plaatje');
+      return 0;
+    } else if(url.match(reVideo) !== null){
+      console.log(url + ' is een video');
+      return 1;
+    } else if(url.match(reYoutube) !== null){
+      console.log(url + ' is een youtube video');
+      return 2;
+    } else{
+      console.log(url + ' is iets anders');
+      return -1;
     }
 
-    //returns: image-> 0, video -> 1, default -> error (-1)
-    switch(ext){
-      case "img":
-      case "png":
-      case "jpg":
-        return 0;
-      case "gif":
-      case "gifv":
-      case "mp4":
-      case "webm":
-        return 1;
-      default:
-        return -1;
-    }
+    //returns: image-> 0, video -> 1, youtube -> 2, default -> error (-1)
   };
 
   $scope.getCorrectUrls = function(){
@@ -109,7 +109,7 @@ angular.module('starter.controllers', [])
       $scope.urls[i] = $scope.links[i].data.url;
 
       //var newUrl = $scope.urls[i].replace(/(gifv|gif)$/, 'webm');
-      var newUrl = $scope.urls[i].replace(/gifv$/, 'webm');
+      var newUrl = $scope.urls[i].replace(/gifv$/, 'mp4');
 
       $scope.urls[i] = newUrl;
 
