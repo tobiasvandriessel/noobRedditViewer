@@ -129,7 +129,7 @@ angular.module('starter.controllers', [])
   };
 
   $scope.GoToLink = function(url) {
-    window.open(url, '_blank'); 
+    window.open(url, '_system'); 
   };
 
   //$scope.init();
