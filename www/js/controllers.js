@@ -79,26 +79,30 @@ angular.module('starter.controllers', [])
   $scope.getType = function(url){
 
     var reImage = /(img|png|jpg)$/;
-    var reVideo = /(gif|gifv|mp4|webm)$/;
+    var reGif = /(gif)$/;
+    var reVideo = /(gifv|mp4|webm)$/;
     var reYoutube = /youtu/;
 
-    console.log('checking extensions');
+    //console.log('checking extensions');
 
     if(url.match(reImage) !== null){
-      console.log(url + ' is een plaatje');
+      //console.log(url + ' is een plaatje');
       return 0;
-    } else if(url.match(reVideo) !== null){
-      console.log(url + ' is een video');
+    } else if(url.match(reGif) !== null){
+      //console.log(url + ' is een gif');
       return 1;
-    } else if(url.match(reYoutube) !== null){
-      console.log(url + ' is een youtube video');
+    } else if(url.match(reVideo) !== null){
+      //console.log(url + ' is een video');
       return 2;
+    } else if(url.match(reYoutube) !== null){
+      //console.log(url + ' is een youtube video');
+      return 3;
     } else{
-      console.log(url + ' is iets anders');
+      //console.log(url + ' is iets anders');
       return -1;
     }
 
-    //returns: image-> 0, video -> 1, youtube -> 2, default -> error (-1)
+    //returns: image-> 0, , gif -> 1, video -> 2, youtube -> 3, default -> error (-1)
   };
 
   $scope.getCorrectUrls = function(){
@@ -120,9 +124,13 @@ angular.module('starter.controllers', [])
     }
   };
 
-    $scope.trustSrc = function(src) {
-      return $sce.trustAsResourceUrl(src);
-    };
+  $scope.trustSrc = function(src) {
+    return $sce.trustAsResourceUrl(src);
+  };
+
+  $scope.GoToLink = function(url) {
+    window.open(url, '_blank'); 
+  };
 
   //$scope.init();
 });

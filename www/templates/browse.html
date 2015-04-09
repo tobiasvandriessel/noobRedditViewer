@@ -14,7 +14,7 @@
 
     <div class="list card" data-ng-repeat="link in links">
 
-      <div class="item ">
+      <div class="item item-divider item-text-wrap">
         <!-- <img data-ng-src="{{link.data.author.avatar_url}}"> -->
         <h2>{{link.data.title}}</h2>
         <h5>{{link.data.author}}</h5>
@@ -22,17 +22,20 @@
 
       <div class="item item-link">
         <img ng-click="focus = $index" ng-show="focus != $index && link.data.thumbnail !== null" data-ng-src="{{link.data.thumbnail}}">
-        <img ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url) == 0" data-ng-src="{{link.data.url}}" width="100%">
-        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url) == 1 " data-ng-src="{{trustSrc(urls[$index])}}" width="100%" autoplay loop>
+        <img ng-click="focus = -1" ng-show="focus == $index && (getType(link.data.url) == 0 || getType(link.data.url) == 1)" data-ng-src="{{link.data.url}}" width="100%">
+        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url) == 2 " data-ng-src="{{trustSrc(urls[$index])}}" width="100%" autoplay loop>
         Your browser doesn't support this video format.
         </video>
       </div>
 
-      <a class="item item-icon-left assertive" data-ng-href="{{link.data.url}}">
+      <a class="item item-icon-left positive" ng-click="GoToLink(link.data.url)">
         <i class="icon ion-link"></i>
         Visit Original Link
       </a>
 
+      <script>
+
+      </script>
     </div>
 
   </ion-content>
