@@ -1,42 +1,40 @@
 <ion-view view-title="Browse">
-  <ion-content ng-init="focus=0">
+    <ion-content ng-init="focus=0">
 
-  	<div class="bar bar-header item-input-inset">
-  		<label class="item-input-wrapper" name="searchBar">
-    		<i class="icon ion-ios7-search placeholder-icon"></i>
-    		<input type="search" placeholder="Search Subreddits" ng-model="searchTerm"/>
+        <form class="bar bar-header item-input-inset">
+            <label class="item-input-wrapper" name="searchBar">
+                <i class="icon ion-ios7-search placeholder-icon"></i>
+                <input type="search" placeholder="Search Subreddits" ng-model="searchTerm" />
 
-  		</label>
-  		<button class="button button-clear" ng-click="init(searchTerm)">
-    		Submit
-  		</button>
-    </div>
+            </label>
+            <button type="submit" class="button button-clear" ng-click="init(searchTerm)">
+                Submit
+            </button>
+        </form>
 
-    <div class="list card" data-ng-repeat="link in links">
+        <div class="list card" data-ng-repeat="link in links">
 
-      <div class="item item-divider item-text-wrap">
-        <!-- <img data-ng-src="{{link.data.author.avatar_url}}"> -->
-        <h2>{{link.data.title}}</h2>
-        <h5>{{link.data.author}}</h5>
-      </div>
+            <div class="item item-divider item-text-wrap">
+                <!-- <img data-ng-src="{{link.data.author.avatar_url}}"> -->
+                <h2>{{link.data.title}}</h2>
+                <h5>{{link.data.author}}</h5>
+            </div>
 
-      <div class="item item-link">
-        <img ng-click="focus = $index" ng-show="focus != $index && link.data.thumbnail !== null" data-ng-src="{{link.data.thumbnail}}">
-        <img ng-click="focus = -1" ng-show="focus == $index && (getType(link.data.url) == 0 || getType(link.data.url) == 1)" data-ng-src="{{link.data.url}}" width="100%">
-        <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url) == 2 " data-ng-src="{{trustSrc(urls[$index])}}" width="100%" autoplay loop>
-        Your browser doesn't support this video format.
-        </video>
-      </div>
+            <div class="item item-link">
+                <img ng-click="focus = $index" ng-show="focus != $index && link.data.thumbnail !== null" data-ng-src="{{link.data.thumbnail}}">
+                <img ng-click="focus = -1" ng-show="focus == $index && (getType(link.data.url) == 0 || getType(link.data.url) == 1)" data-ng-src="{{link.data.url}}" width="100%">
+                <video ng-click="focus = -1" ng-show="focus == $index && getType(link.data.url) == 2 " data-ng-src="{{trustSrc(urls[$index])}}" width="100%" autoplay loop>
+                    Your browser doesn't support this video format.
+                </video>
+            </div>
 
-      <a class="item item-icon-left positive" ng-click="GoToLink(link.data.url)">
-        <i class="icon ion-link"></i>
-        Visit Original Link
-      </a>
+            <a class="item item-icon-left positive" ng-click="GoToLink(link.data.url)">
+                <i class="icon ion-link"></i> Visit Original Link
+            </a>
 
-      <script>
+            <script>
+            </script>
+        </div>
 
-      </script>
-    </div>
-
-  </ion-content>
+    </ion-content>
 </ion-view>
